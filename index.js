@@ -72,6 +72,9 @@ const keys = {
     }
 };
 
+// Win Scenario
+let scrollOffset = 0;
+
 // Animation Function
 function animate() {
     requestAnimationFrame(animate);
@@ -89,10 +92,12 @@ function animate() {
         player.velocity.x = 0;
 
         if (keys.right.pressed) {
+            scrollOffset += 5;
             platforms.forEach(platform => {
                 platform.position.x -= 5;       
             });
         } else if (keys.left.pressed) {
+            scrollOffset -= 5;
             platforms.forEach(platform => {
                 platform.position.x += 5;        
             }); 
