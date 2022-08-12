@@ -9,6 +9,20 @@ canvas.height = innerHeight;
 // Gravity
 const gravity = 1.5;
 
+// Platform Class
+class Platform {
+    constructor() {
+        this.position = { x: 300, y: 200 };
+        this.width = 200;
+        this.height = 20;
+    }
+
+    draw() {
+        context.fillStyle = "yellow";
+        context.fillRect(this.position.x, this.position.y, this.width, this.height);
+    }
+}
+
 // Player Class
 class Player {
     constructor() {
@@ -37,8 +51,9 @@ class Player {
     }
 }
 
-// New Player
+// New Player and PLatform
 const player = new Player();
+const platform = new Platform();
 
 // Keys
 const keys = {
@@ -61,6 +76,7 @@ function animate() {
     requestAnimationFrame(animate);
     context.clearRect(0, 0, canvas.width, canvas.height);
     player.update();
+    platform.draw();
 
     if (keys.right.pressed) {
         player.velocity.x = 5;
