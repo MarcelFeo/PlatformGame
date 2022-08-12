@@ -104,6 +104,7 @@ function animate() {
         };
     };
 
+    // Platform Contact
     platforms.forEach(platform => {
         if (
             player.position.y + player.height <= platform.position.y 
@@ -114,6 +115,11 @@ function animate() {
             player.velocity.y = 0;
         }
     });
+
+    // Alert If You Win
+    if (scrollOffset > 2000) {
+        alert('YOU WIN')
+    }
 };
 
 animate();
