@@ -1,6 +1,7 @@
 // Images
 import platform from '../assets/platform.png';
-console.log(platform);
+import hills from '../assets/hills.png';
+import background from '../assets/background.png';
 
 // Canvas Configuration
 const canvas = document.querySelector('canvas');
@@ -15,6 +16,21 @@ const gravity = 1.5;
 
 // Platform Class
 class Platform {
+    constructor({ x, y, image }) {
+        this.position = { x, y };
+        this.image = image;
+        this.width = image.width;
+        this.height = image.height;
+    }
+
+    draw() {
+        context.fillStyle = "yellow";
+        context.drawImage(this.image, this.position.x, this.position.y);
+      }
+}
+
+// GenericObject Class
+class GenericObject {
     constructor({ x, y, image }) {
         this.position = { x, y };
         this.image = image;
@@ -57,13 +73,18 @@ class Player {
 }
 
 // Set Image Platform
-const image = new Image();
-image.src = platform;
+function createImage(imageSrc) {
+  const image = new Image();
+  image.src = imageSrc;
+  return image
+};
 
-// New Player and PLatform
+const platformImage = createImage(platform);
+
+// New Player and Platform and Objects
 const player = new Player();
-// const platform = new Platform();
-const platforms = [new Platform({ x: 0, y: 470, image }), new Platform({ x: image.width - 2 , y: 470, image })];
+const platforms = [new Platform({ x: -1, y: 470, image: createImage(platform) }), new Platform({ x: platformImage.width - 3 , y: 470, image: createImage(platform) })];
+const genericObject = [new GenericObject({ x: 0, y: 0, image: createImage(background) }), new GenericObject({ x: 0, y: 0, image: createImage(hills) })];
 
 // Keys
 const keys = {
@@ -89,6 +110,11 @@ function animate() {
     requestAnimationFrame(animate);
     context.fillStyle = "white";
     context.fillRect(0, 0, canvas.width, canvas.height);
+
+    genericObject.forEach(genericObject => {
+      genericObject.draw();
+    });
+
     platforms.forEach(platform => {
         platform.draw();        
     });
@@ -105,6 +131,9 @@ function animate() {
             scrollOffset += 5;
             platforms.forEach(platform => {
                 platform.position.x -= 5;       
+            });
+            genericObject.forEach(genericObject => {
+              genericObject.position.x -= 3;
             });
         } else if (keys.left.pressed) {
             scrollOffset -= 5;
