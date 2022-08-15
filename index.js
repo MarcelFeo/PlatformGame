@@ -1,3 +1,7 @@
+// Images
+import platform from './assets/platform.png';
+console.log(platform);
+
 // Canvas Configuration
 const canvas = document.querySelector('canvas');
 const context = canvas.getContext('2d');
