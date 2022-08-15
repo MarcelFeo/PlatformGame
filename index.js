@@ -17,9 +17,9 @@ const gravity = 1.5;
 class Platform {
     constructor({ x, y, image }) {
         this.position = { x, y };
-        this.width = 200;
-        this.height = 20;
         this.image = image;
+        this.width = image.width;
+        this.height = image.height;
     }
 
     draw() {
@@ -63,7 +63,7 @@ image.src = platform;
 // New Player and PLatform
 const player = new Player();
 // const platform = new Platform();
-const platforms = [new Platform({ x: 200, y: 100, image }), new Platform({ x: 400, y: 200, image })];
+const platforms = [new Platform({ x: 0, y: 470, image }), new Platform({ x: image.width - 2 , y: 470, image })];
 
 // Keys
 const keys = {
@@ -87,11 +87,12 @@ let scrollOffset = 0;
 // Animation Function
 function animate() {
     requestAnimationFrame(animate);
-    context.clearRect(0, 0, canvas.width, canvas.height);
-    player.update();
+    context.fillStyle = "white";
+    context.fillRect(0, 0, canvas.width, canvas.height);
     platforms.forEach(platform => {
         platform.draw();        
     });
+    player.update();
 
     if (keys.right.pressed && player.position.x < 400) {
         player.velocity.x = 5;
