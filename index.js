@@ -1,5 +1,5 @@
 // Images
-import platform from './assets/platform.png';
+import platform from '../assets/platform.png';
 console.log(platform);
 
 // Canvas Configuration
@@ -15,16 +15,17 @@ const gravity = 1.5;
 
 // Platform Class
 class Platform {
-    constructor({ x, y }) {
+    constructor({ x, y, image }) {
         this.position = { x, y };
         this.width = 200;
         this.height = 20;
+        this.image = image;
     }
 
     draw() {
         context.fillStyle = "yellow";
-        context.fillRect(this.position.x, this.position.y, this.width, this.height);
-    }
+        context.drawImage(this.image, this.position.x, this.position.y);
+      }
 }
 
 // Player Class
@@ -55,10 +56,14 @@ class Player {
     }
 }
 
+// Set Image Platform
+const image = new Image();
+image.src = platform;
+
 // New Player and PLatform
 const player = new Player();
 // const platform = new Platform();
-const platforms = [new Platform({ x: 200, y: 100 }), new Platform({ x: 400, y: 200 })];
+const platforms = [new Platform({ x: 200, y: 100, image }), new Platform({ x: 400, y: 200, image })];
 
 // Keys
 const keys = {
