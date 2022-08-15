@@ -64,8 +64,6 @@ class Player {
 
         if (this.position.y + this.height + this.velocity.y <= canvas.height) {
             this.velocity.y += gravity;
-        } else {
-            this.velocity.y = 0;
         }
 
         this.draw();
@@ -79,12 +77,20 @@ function createImage(imageSrc) {
   return image
 };
 
-const platformImage = createImage(platform);
+// First Start
+let platformImage = createImage(platform);
 
 // New Player and Platform and Objects
-const player = new Player();
-const platforms = [new Platform({ x: -1, y: 470, image: createImage(platform) }), new Platform({ x: platformImage.width - 3 , y: 470, image: createImage(platform) })];
-const genericObject = [new GenericObject({ x: 0, y: 0, image: createImage(background) }), new GenericObject({ x: 0, y: 0, image: createImage(hills) })];
+let player = new Player();
+let platforms = [
+  new Platform({ x: -1, y: 470, image: createImage(platform) }), 
+  new Platform({ x: platformImage.width - 3 , y: 470, image: createImage(platform) }),
+  new Platform({ x: platformImage.width * 2 + 100 , y: 470, image: createImage(platform) })
+];
+let genericObject = [
+  new GenericObject({ x: 0, y: 0, image: createImage(background) }), 
+  new GenericObject({ x: 0, y: 0, image: createImage(hills) })
+];
 
 // Keys
 const keys = {
@@ -104,6 +110,26 @@ const keys = {
 
 // Win Scenario
 let scrollOffset = 0;
+
+// Init function
+function init() {
+  platformImage = createImage(platform);
+
+  // New Player and Platform and Objects
+  player = new Player();
+  platforms = [
+    new Platform({ x: -1, y: 470, image: createImage(platform) }), 
+    new Platform({ x: platformImage.width - 3 , y: 470, image: createImage(platform) }),
+    new Platform({ x: platformImage.width * 2 + 100 , y: 470, image: createImage(platform) })
+  ];
+  genericObject = [
+    new GenericObject({ x: 0, y: 0, image: createImage(background) }), 
+    new GenericObject({ x: 0, y: 0, image: createImage(hills) })
+  ];
+
+  // Win Scenario
+  scrollOffset = 0;
+}
 
 // Animation Function
 function animate() {
@@ -157,8 +183,14 @@ function animate() {
 
     // Alert If You Win
     if (scrollOffset > 2000) {
-        alert('YOU WIN')
+        alert("YOU WIN");
     }
+
+    // Aler If You Lose
+    if (player.position.y > canvas.height) {
+        alert("YOU LOSE");
+        init();
+    };
 };
 
 animate();
