@@ -1,4 +1,4 @@
-# Mario Clone Game
+# Platform Game
 
 Link para a VideoAula 👉 https://www.youtube.com/watch?v=4q2vvZn5aoo
 
@@ -10,8 +10,7 @@ $ https://github.com/MarcelFeo/PlatformGame.git
 ```
 
 ```bash
-# Execute
-$ npm start
+# Execute o código em um servidor e pronto 👍
 ```
 
 ## 🛠 Tecnologias
